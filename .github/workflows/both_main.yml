@@ -1,8 +1,3 @@
-# This workflow uses actions that are not certified by GitHub.
-# They are provided by a third-party and are governed by
-# separate terms of service, privacy policy, and support
-# documentation.
-
 name: Publish Docker both image
 
 on:
@@ -11,6 +6,7 @@ on:
 
 jobs:
   push_to_registries:
+    if: github.event_name != 'release'  # 👈 release 이벤트면 실행 안 함
     name: Push Docker image to multiple registries
     runs-on: ubuntu-latest
     permissions:
@@ -49,3 +45,4 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+
